@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>qtrade.questrade &#8212; Qtrade 0.1.1 documentation</title>
+    <title>qtrade.questrade &#8212; Qtrade 0.2.0 documentation</title>
     <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
@@ -50,9 +50,18 @@
 <span class="sd">    This class holds the methods to get access tokens, refresh access tokens as well as get</span>
 <span class="sd">    stock quotes and portfolio overview. An instance of the class needs to be either initialized</span>
 <span class="sd">    with an access_code or the path of a access token yaml file.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    access_code: str, optional</span>
+<span class="sd">        Access code from Questrade</span>
+<span class="sd">    token_yaml: str, optional</span>
+<span class="sd">        Path of the yaml-file holding the token payload</span>
+<span class="sd">    save_yaml: bool, optional</span>
+<span class="sd">        Boolean to indicate if the token payload will be saved in a yaml-file. Default True.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">token_yaml</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">access_code</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">token_yaml</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">save_yaml</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="kc">None</span>
@@ -68,7 +77,7 @@
             <span class="c1"># add headers to session</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">get_access_token</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">get_access_token</span><span class="p">(</span><span class="n">save_yaml</span><span class="o">=</span><span class="n">save_yaml</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">account_id</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">positions</span> <span class="o">=</span> <span class="kc">None</span>
@@ -100,9 +109,31 @@
         <span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Questrade.get_access_token"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.get_access_token">[docs]</a>    <span class="k">def</span> <span class="nf">get_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.save_token_to_yaml"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.save_token_to_yaml">[docs]</a>    <span class="k">def</span> <span class="nf">save_token_to_yaml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">yaml_path</span><span class="o">=</span><span class="s2">&quot;access_token.yml&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;This method saves the token payload as a yaml-file</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        yaml_path: str, optional</span>
+<span class="sd">            Path of the yaml-file. If the file already exists, it will be overwritten. Defaults to</span>
+<span class="sd">            access_token.yml</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml_file</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving access token to yaml file...&quot;</span><span class="p">)</span>
+            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Questrade.get_access_token"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.get_access_token">[docs]</a>    <span class="k">def</span> <span class="nf">get_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">save_yaml</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">yaml_path</span><span class="o">=</span><span class="s2">&quot;access_token.yml&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This method gets the access token from the access code and saves it in access_token.yaml.</span>
+<span class="sd">        This method gets the access token from the access code and optionally saves it in</span>
+<span class="sd">        access_token.yaml.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        save_yaml: bool, optional</span>
+<span class="sd">            Boolean to indicate if the token payload will be saved in a yaml-file. Default False.</span>
+<span class="sd">        yaml_path: str, optional</span>
+<span class="sd">            Path of the yaml-file that will be saved. If the file already exists, it will be</span>
+<span class="sd">            overwritten. Defaults to access_token.yml</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -133,23 +164,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
 
         <span class="c1"># save access token</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;access_token.yml&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml_file</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving access token to yaml file...&quot;</span><span class="p">)</span>
-            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">save_yaml</span><span class="p">:</span>
+            <span class="n">log</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Saving yaml file to </span><span class="si">{}</span><span class="s2">...&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">yaml_path</span><span class="p">))</span> <span class="c1">#pylint: disable=W1202</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_token_to_yaml</span><span class="p">(</span><span class="n">yaml_path</span><span class="o">=</span><span class="n">yaml_path</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span></div>
 
-
-<div class="viewcode-block" id="Questrade.refresh_access_token"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.refresh_access_token">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_yaml</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.refresh_access_token"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.refresh_access_token">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_yaml</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">yaml_path</span><span class="o">=</span><span class="s2">&quot;access_token.yml&quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        This method refreshes the access token saved in access_token.yml. This only works if the</span>
-<span class="sd">        overall access has not yet expired.</span>
+<span class="sd">        This method refreshes the access token. This only works if the overall access has not yet</span>
+<span class="sd">        expired. By default it will look for the yaml-file, but it could also look for the internal</span>
+<span class="sd">        state</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        from_yaml: bool, optional [True]</span>
-<span class="sd">            This parameter controls if the refresh token is sourced from a yaml file (default)</span>
-<span class="sd">            or if the attribute `access_token` is used.</span>
+<span class="sd">        from_yaml: bool, optional [False]</span>
+<span class="sd">            This parameter controls if the refresh token is sourced from a yaml file</span>
+<span class="sd">            or if the attribute `access_token` is used (default). If True, the yaml-file will be</span>
+<span class="sd">            updated.</span>
+<span class="sd">        yaml_path: str, optional</span>
+<span class="sd">            Path of the yaml-file that will be updated. Defaults to access_token.yml</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -185,9 +219,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">)</span>
 
         <span class="c1"># save access token</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;access_token.yml&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml_file</span><span class="p">:</span>
-            <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving access token to yaml file...&quot;</span><span class="p">)</span>
-            <span class="n">yaml</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">access_token</span><span class="p">,</span> <span class="n">yaml_file</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">from_yaml</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">save_token_to_yaml</span><span class="p">(</span><span class="n">yaml_path</span><span class="o">=</span><span class="n">yaml_path</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span></div>
 
