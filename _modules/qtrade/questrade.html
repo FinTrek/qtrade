@@ -1,155 +1,34 @@
 
-
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>qtrade.questrade &mdash; Qtrade 0.1.1 documentation</title>
-  
 
-  
-  
-  
-  
-
-  
-  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-        <script type="text/javascript" src="../../_static/language_data.js"></script>
-    
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
-    
-
-  
-  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>qtrade.questrade &#8212; Qtrade 0.1.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
-    <link rel="search" title="Search" href="../../search.html" /> 
-</head>
-
-<body class="wy-body-for-nav">
-
+    <link rel="search" title="Search" href="../../search.html" />
    
-  <div class="wy-grid-for-nav">
-    
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-          
-
-          
-            <a href="../../index.html" class="icon icon-home"> Qtrade
-          
-
-          
-          </a>
-
-          
-            
-            
-              <div class="version">
-                0.1.1
-              </div>
-            
-          
-
-          
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-
-          
-        </div>
-
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Introduction:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Introduction to Qtrade</a></li>
-</ul>
-<p class="caption"><span class="caption-text">API Reference</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">qtrade</a></li>
-</ul>
-
-            
-          
-        </div>
-      </div>
-    </nav>
-
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">Qtrade</a>
-        
-      </nav>
-
-
-      <div class="wy-nav-content">
-        
-        <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
-  <ul class="wy-breadcrumbs">
-    
-      <li><a href="../../index.html">Docs</a> &raquo;</li>
-        
-          <li><a href="../index.html">Module code</a> &raquo;</li>
-        
-      <li>qtrade.questrade</li>
-    
-    
-      <li class="wy-breadcrumbs-aside">
-        
-      </li>
-    
-  </ul>
-
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
   
-  <hr/>
-</div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
             
   <h1>Source code for qtrade.questrade</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Core module for Questrade API wrapper</span>
@@ -165,7 +44,7 @@
 
 <span class="n">TOKEN_URL</span> <span class="o">=</span> <span class="s1">&#39;https://login.questrade.com/oauth2/token?grant_type=refresh_token&amp;refresh_token=&#39;</span>
 
-<div class="viewcode-block" id="Questrade"><a class="viewcode-back" href="../../api/qtrade.questrade.html#qtrade.questrade.Questrade">[docs]</a><span class="k">class</span> <span class="nc">Questrade</span><span class="p">():</span>
+<div class="viewcode-block" id="Questrade"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade">[docs]</a><span class="k">class</span> <span class="nc">Questrade</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Questrade baseclass</span>
 
 <span class="sd">    This class holds the methods to get access tokens, refresh access tokens as well as get</span>
@@ -221,7 +100,7 @@
         <span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 
-<div class="viewcode-block" id="Questrade.get_access_token"><a class="viewcode-back" href="../../api/qtrade.questrade.html#qtrade.questrade.Questrade.get_access_token">[docs]</a>    <span class="k">def</span> <span class="nf">get_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.get_access_token"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.get_access_token">[docs]</a>    <span class="k">def</span> <span class="nf">get_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method gets the access token from the access code and saves it in access_token.yaml.</span>
 
@@ -261,7 +140,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span></div>
 
 
-<div class="viewcode-block" id="Questrade.refresh_access_token"><a class="viewcode-back" href="../../api/qtrade.questrade.html#qtrade.questrade.Questrade.refresh_access_token">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_yaml</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.refresh_access_token"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.refresh_access_token">[docs]</a>    <span class="k">def</span> <span class="nf">refresh_access_token</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">from_yaml</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method refreshes the access token saved in access_token.yml. This only works if the</span>
 <span class="sd">        overall access has not yet expired.</span>
@@ -312,7 +191,7 @@
 
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">access_token</span></div>
 
-<div class="viewcode-block" id="Questrade.get_account_id"><a class="viewcode-back" href="../../api/qtrade.questrade.html#qtrade.questrade.Questrade.get_account_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.get_account_id"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.get_account_id">[docs]</a>    <span class="k">def</span> <span class="nf">get_account_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method gets the accounts ID connected to the token.</span>
 
@@ -336,7 +215,7 @@
 
         <span class="k">return</span> <span class="n">account_id</span></div>
 
-<div class="viewcode-block" id="Questrade.get_account_positions"><a class="viewcode-back" href="../../api/qtrade.questrade.html#qtrade.questrade.Questrade.get_account_positions">[docs]</a>    <span class="k">def</span> <span class="nf">get_account_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.get_account_positions"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.get_account_positions">[docs]</a>    <span class="k">def</span> <span class="nf">get_account_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method will get the positions for the account ID connected to the token.</span>
 
@@ -381,7 +260,7 @@
 
         <span class="k">return</span> <span class="n">positions</span></div>
 
-<div class="viewcode-block" id="Questrade.get_account_activities"><a class="viewcode-back" href="../../api/qtrade.questrade.html#qtrade.questrade.Questrade.get_account_activities">[docs]</a>    <span class="k">def</span> <span class="nf">get_account_activities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.get_account_activities"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.get_account_activities">[docs]</a>    <span class="k">def</span> <span class="nf">get_account_activities</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">account_id</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method will get the account activities for a given account ID in a given time</span>
 <span class="sd">        interval.</span>
@@ -435,7 +314,7 @@
 
         <span class="k">return</span> <span class="n">activities</span></div>
 
-<div class="viewcode-block" id="Questrade.ticker_information"><a class="viewcode-back" href="../../api/qtrade.questrade.html#qtrade.questrade.Questrade.ticker_information">[docs]</a>    <span class="k">def</span> <span class="nf">ticker_information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tickers</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.ticker_information"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.ticker_information">[docs]</a>    <span class="k">def</span> <span class="nf">ticker_information</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tickers</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function gets information such as a quote for a single ticker or a list of tickers.</span>
 
@@ -467,7 +346,7 @@
 
         <span class="k">return</span> <span class="n">symbols</span></div>
 
-<div class="viewcode-block" id="Questrade.get_quote"><a class="viewcode-back" href="../../api/qtrade.questrade.html#qtrade.questrade.Questrade.get_quote">[docs]</a>    <span class="k">def</span> <span class="nf">get_quote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tickers</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.get_quote"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.get_quote">[docs]</a>    <span class="k">def</span> <span class="nf">get_quote</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tickers</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function gets information such as a quote for a single ticker or a list of tickers.</span>
 
@@ -506,7 +385,7 @@
 
         <span class="k">return</span> <span class="n">quotes</span></div>
 
-<div class="viewcode-block" id="Questrade.get_historical_data"><a class="viewcode-back" href="../../api/qtrade.questrade.html#qtrade.questrade.Questrade.get_historical_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_historical_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ticker</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.get_historical_data"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.get_historical_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_historical_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ticker</span><span class="p">,</span> <span class="n">start_date</span><span class="p">,</span> <span class="n">end_date</span><span class="p">,</span> <span class="n">interval</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method get gets historical data for a time interval and a defined time frequency.</span>
 
@@ -546,7 +425,7 @@
 
         <span class="k">return</span> <span class="n">quotes</span></div>
 
-<div class="viewcode-block" id="Questrade.submit_order"><a class="viewcode-back" href="../../api/qtrade.questrade.html#qtrade.questrade.Questrade.submit_order">[docs]</a>    <span class="k">def</span> <span class="nf">submit_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">acct_id</span><span class="p">,</span> <span class="n">order_dict</span><span class="p">):</span>
+<div class="viewcode-block" id="Questrade.submit_order"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.questrade.Questrade.submit_order">[docs]</a>    <span class="k">def</span> <span class="nf">submit_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">acct_id</span><span class="p">,</span> <span class="n">order_dict</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This method submits an order to Questrade. Note that currently only partner apps can submit</span>
 <span class="sd">        orders to the Questrade API. The order information is provided in a dictionary of the form</span>
@@ -586,43 +465,73 @@
         <span class="k">return</span> <span class="n">response</span></div></div>
 </pre></div>
 
-           </div>
-           
           </div>
-          <footer>
-  
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">Qtrade</a></h1>
 
-  <hr/>
 
-  <div role="contentinfo">
-    <p>
-        &copy; Copyright 2019, Jan Borchmann
 
-    </p>
-  </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
-</footer>
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption"><span class="caption-text">Introduction:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">Introduction to Qtrade</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/modules.html">qtrade</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
 
         </div>
       </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Jan Borchmann.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
 
-    </section>
-
-  </div>
-  
-
-
-  <script type="text/javascript">
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(true);
-      });
-  </script>
-
-  
-  
     
-   
 
-</body>
+    
+  </body>
 </html>
