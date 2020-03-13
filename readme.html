@@ -180,7 +180,7 @@ the command</p>
 </div>
 <div class="section" id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
-<p>The main class of the package is called <cite>Questrade</cite> and houses most of the functionality provided
+<p>The main class of the package is called <code class="docutils literal notranslate"><span class="pre">Questrade</span></code> and houses most of the functionality provided
 by the package. Below are a few examples for possible use cases.</p>
 <div class="section" id="token-management">
 <h3>Token management<a class="headerlink" href="#token-management" title="Permalink to this headline">¶</a></h3>
@@ -238,7 +238,7 @@ tickers that are supported by Questrade.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aapl_history</span> <span class="o">=</span> <span class="o">=</span> <span class="n">qtrade</span><span class="o">.</span><span class="n">get_historical_data</span><span class="p">(</span><span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-21&#39;</span><span class="p">,</span><span class="s1">&#39;OneHour&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Here, the last input parameter is the interval between quotes. Another option could be <cite>‘OneDay’</cite>.
+<p>Here, the last input parameter is the interval between quotes. Another option could be <code class="docutils literal notranslate"><span class="pre">'OneDay'</span></code>.
 For more options, see the <a href="#id1"><span class="problematic" id="id2">`Questrade API description &lt;http://www.questrade.com/api/documentation/rest-operations/enumerations/enumerations#historical-data-granularity`_</span></a>.</p>
 </div>
 <div class="section" id="account-information">
@@ -252,7 +252,7 @@ the token. The accounts IDs can be accessed via</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">positions</span> <span class="o">=</span> <span class="n">qtrade</span><span class="o">.</span><span class="n">get_account_positions</span><span class="p">(</span><span class="n">account_id</span><span class="o">=</span><span class="mi">123456</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Finally, there exists a method to get all account activities (trades, dividends recieved, etc.) of
+<p>Finally, there exists a method to get all account activities (trades, dividends received, etc.) of
 an account in a certain time frame via</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">activities</span> <span class="o">=</span> <span class="n">qtrade</span><span class="o">.</span><span class="n">get_account_activities</span><span class="p">(</span><span class="mi">123456</span><span class="p">,</span> <span class="s1">&#39;2018-08-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-16&#39;</span><span class="p">)</span>
 </pre></div>
@@ -261,7 +261,7 @@ an account in a certain time frame via</p>
 </div>
 <div class="section" id="contributors">
 <h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h2>
-<p>There is a test suite that can be run via <cite>python -m pytest</cite>.</p>
+<p>There is a test suite that can be run via <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">pytest</span></code>.</p>
 </div>
 </div>
 
