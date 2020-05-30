@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>qtrade.utility &mdash; Qtrade 0.2.1 documentation</title>
+  <title>qtrade.utility &mdash; Qtrade 0.2.2 documentation</title>
   
 
   
@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.2.2
               </div>
             
           
@@ -157,7 +157,7 @@
 <span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">yaml</span>
 
-<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span> <span class="c1">#pylint: disable=C0103</span>
+<span class="n">log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>  <span class="c1"># pylint: disable=C0103</span>
 
 
 <div class="viewcode-block" id="get_access_token_yaml"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.utility.get_access_token_yaml">[docs]</a><span class="k">def</span> <span class="nf">get_access_token_yaml</span><span class="p">(</span><span class="n">token_yaml</span><span class="p">):</span>
@@ -184,8 +184,14 @@
     <span class="n">validate_access_token</span><span class="p">(</span><span class="o">**</span><span class="n">token_yaml</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">token_yaml</span></div>
 
-<div class="viewcode-block" id="validate_access_token"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.utility.validate_access_token">[docs]</a><span class="k">def</span> <span class="nf">validate_access_token</span><span class="p">(</span><span class="n">access_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">api_server</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">expires_in</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                          <span class="n">refresh_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">token_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+<div class="viewcode-block" id="validate_access_token"><a class="viewcode-back" href="../../api/qtrade.html#qtrade.utility.validate_access_token">[docs]</a><span class="k">def</span> <span class="nf">validate_access_token</span><span class="p">(</span>
+    <span class="n">access_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">api_server</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">expires_in</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">refresh_token</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">token_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Validate access token</span>
 
 <span class="sd">    This function validates the access token and ensures that all requiered</span>
@@ -211,15 +217,15 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">log</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Validating access token...&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">access_token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Access token was not provided.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Access token was not provided.&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">api_server</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;API server URL was not provided.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;API server URL was not provided.&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">expires_in</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Expiry time was not provided.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Expiry time was not provided.&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">refresh_token</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Refresh token was not provided.&#39;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Refresh token was not provided.&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">token_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s1">&#39;Token type was not provided.&#39;</span><span class="p">)</span></div>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Token type was not provided.&quot;</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
