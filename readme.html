@@ -95,6 +95,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#contributors">Contributors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#disclaimer">Disclaimer</a></li>
 </ul>
 </li>
 </ul>
@@ -234,7 +235,7 @@ tickers that are supported by Questrade.</p>
 </pre></div>
 </div>
 <p>In addition, one can get historical stock quotes via</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aapl_history</span> <span class="o">=</span> <span class="o">=</span> <span class="n">qtrade</span><span class="o">.</span><span class="n">get_historical_data</span><span class="p">(</span><span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-21&#39;</span><span class="p">,</span><span class="s1">&#39;OneHour&#39;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">aapl_history</span> <span class="o">=</span> <span class="n">qtrade</span><span class="o">.</span><span class="n">get_historical_data</span><span class="p">(</span><span class="s1">&#39;AAPL&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-01&#39;</span><span class="p">,</span> <span class="s1">&#39;2018-08-21&#39;</span><span class="p">,</span><span class="s1">&#39;OneHour&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Here, the last input parameter is the interval between quotes. Another option could be <code class="docutils literal notranslate"><span class="pre">'OneDay'</span></code>.
@@ -272,6 +273,10 @@ an account in a certain time frame via</p>
 and <code class="docutils literal notranslate"><span class="pre">black</span></code> which takes care of automatic code formatting and linting. When setting up the development
 environment, run <code class="docutils literal notranslate"><span class="pre">pre-commit</span> <span class="pre">install</span></code> to set up the hook. This will run black automatically when
 committing code changes.</p>
+</div>
+<div class="section" id="disclaimer">
+<h2>Disclaimer<a class="headerlink" href="#disclaimer" title="Permalink to this headline">¶</a></h2>
+<p>I am in no way affiliated with Questrade and using this API wrapper is licensed via the MIT license.</p>
 </div>
 </div>
 
