@@ -1,21 +1,20 @@
-"""Core module for Questrade API wrapper
-"""
+"""Core module for Questrade API wrapper."""
 
 import logging
+from typing import Any, Dict, List, Optional, Union
+
 import requests
 import yaml
 
-from .utility import get_access_token_yaml, validate_access_token
+from .utility import TokenDict, get_access_token_yaml, validate_access_token
 
 log = logging.getLogger(__name__)  # pylint: disable=C0103
 
-TOKEN_URL = (
-    "https://login.questrade.com/oauth2/token?grant_type=refresh_token&refresh_token="
-)
+TOKEN_URL = "https://login.questrade.com/oauth2/token?grant_type=refresh_token&refresh_token="
 
 
 class Questrade:
-    """Questrade baseclass
+    """Questrade baseclass.
 
     This class holds the methods to get access tokens, refresh access tokens as well as get
     stock quotes and portfolio overview. An instance of the class needs to be either initialized
@@ -31,16 +30,21 @@ class Questrade:
         Boolean to indicate if the token payload will be saved in a yaml-file. Default True.
     """
 
-    def __init__(self, access_code=None, token_yaml=None, save_yaml=True):
+    def __init__(
+        self,
+        access_code: Optional[str] = None,
+        token_yaml: Optional[str] = None,
+        save_yaml: bool = True,
+    ):
 
-        self.access_token = None
+        self.access_token: TokenDict
         self.headers = None
         self.session = requests.Session()
 
         self.access_code = access_code
         self.token_yaml = token_yaml
 
-        if access_code is None:
+        if access_code is None and self.token_yaml is not None:
             self.access_token = get_access_token_yaml(self.token_yaml)
             self.headers = {
                 "Authorization": self.access_token["token_type"]
@@ -56,9 +60,14 @@ class Questrade:
         self.positions = None
 
     def _send_message(
-        self, method, endpoint, params=None, data=None, json=None
-    ):  # pylint: disable=R0913
-        """Send an API requests
+        self,
+        method: str,
+        endpoint: str,
+        params: Optional[Dict] = None,
+        data: Optional[Dict] = None,
+        json: Optional[Dict] = None,
+    ) -> Dict[str, Any]:  # pylint: disable=R0913
+        """Send an API request.
 
         Parameters
         ----------
@@ -78,15 +87,17 @@ class Questrade:
         dict/list:
             JSON response
         """
-        url = self.access_token["api_server"] + "/v1/" + endpoint
-        resp = self.session.request(
-            method, url, params=params, data=data, json=json, timeout=30
-        )
+        if self.access_token is not None:
+            url = self.access_token["api_server"] + "/v1/" + endpoint
+        else:
+            log.error("Access token not set...")
+            raise Exception("Access token not set...")
+        resp = self.session.request(method, url, params=params, data=data, json=json, timeout=30)
         resp.raise_for_status()
         return resp.json()
 
-    def save_token_to_yaml(self, yaml_path="access_token.yml"):
-        """This method saves the token payload as a yaml-file
+    def save_token_to_yaml(self, yaml_path: str = "access_token.yml"):
+        """Save the token payload as a yaml-file.
 
         Parameters
         ----------
@@ -98,8 +109,11 @@ class Questrade:
             log.debug("Saving access token to yaml file...")
             yaml.dump(self.access_token, yaml_file)
 
-    def _get_access_token(self, save_yaml=False, yaml_path="access_token.yml"):
-        """
+    def _get_access_token(
+        self, save_yaml: bool = False, yaml_path: str = "access_token.yml"
+    ) -> TokenDict:
+        """Get access token.
+
         This internal method gets the access token from the access code and optionally saves it in
         access_token.yaml.
 
@@ -116,7 +130,6 @@ class Questrade:
         dict
             Dict with the access token data.
         """
-
         url = TOKEN_URL + str(self.access_code)
         log.info("Getting access token...")
         data = requests.get(url)
@@ -129,9 +142,7 @@ class Questrade:
         self.access_token = response
 
         # clean the api_server entry of the escape characters
-        self.access_token["api_server"] = self.access_token["api_server"].replace(
-            "\\", ""
-        )
+        self.access_token["api_server"] = self.access_token["api_server"].replace("\\", "")
         if self.access_token["api_server"][-1] == "/":
             self.access_token["api_server"] = self.access_token["api_server"][:-1]
 
@@ -146,15 +157,16 @@ class Questrade:
 
         # save access token
         if save_yaml:
-            log.info(
-                "Saving yaml file to {}...".format(yaml_path)
-            )  # pylint: disable=W1202
+            log.info("Saving yaml file to {}...".format(yaml_path))  # pylint: disable=W1202
             self.save_token_to_yaml(yaml_path=yaml_path)
 
         return self.access_token
 
-    def refresh_access_token(self, from_yaml=False, yaml_path="access_token.yml"):
-        """
+    def refresh_access_token(
+        self, from_yaml: bool = False, yaml_path: str = "access_token.yml"
+    ) -> TokenDict:
+        """Refresh access token.
+
         This method refreshes the access token. This only works if the overall access has not yet
         expired. By default it will look for the yaml-file, but it could also look for the internal
         state
@@ -190,9 +202,7 @@ class Questrade:
         self.access_token = response
 
         # clean the api_server entry of the escape characters
-        self.access_token["api_server"] = self.access_token["api_server"].replace(
-            "\\", ""
-        )
+        self.access_token["api_server"] = self.access_token["api_server"].replace("\\", "")
         if self.access_token["api_server"][-1] == "/":
             self.access_token["api_server"] = self.access_token["api_server"][:-1]
 
@@ -212,8 +222,9 @@ class Questrade:
 
         return self.access_token
 
-    def get_account_id(self):
-        """
+    def get_account_id(self) -> List[int]:
+        """Get account ID.
+
         This method gets the accounts ID connected to the token.
 
         Returns
@@ -222,22 +233,23 @@ class Questrade:
             List of account IDs.
         """
         log.info("Getting account ID...")
-        response = self._send_message("get", "accounts")
+        response: Dict[str, List[Dict[str, int]]] = self._send_message("get", "accounts")
 
         account_id = []
         try:
             for account in response["accounts"]:
                 account_id.append(account["number"])
         except Exception:
-            print(response)
+            log.error(response)
             raise Exception
 
-        self.account_id = account_id
+        self.account_id = account_id  # type: ignore
 
         return account_id
 
-    def get_account_positions(self, account_id):
-        """
+    def get_account_positions(self, account_id: int) -> List[Dict]:
+        """Get account positions.
+
         This method will get the positions for the account ID connected to the token.
 
         The returned data is a list where for each position, a dictionary with the following
@@ -270,9 +282,7 @@ class Questrade:
 
         """
         log.info("Getting account positions...")
-        response = self._send_message(
-            "get", "accounts/" + str(account_id) + "/positions"
-        )
+        response = self._send_message("get", "accounts/" + str(account_id) + "/positions")
         try:
             positions = response["positions"]
         except Exception:
@@ -283,8 +293,9 @@ class Questrade:
 
         return positions
 
-    def get_account_activities(self, account_id, start_date, end_date):
-        """
+    def get_account_activities(self, account_id: int, start_date: str, end_date: str) -> List[Dict]:
+        """Get account activities.
+
         This method will get the account activities for a given account ID in a given time
         interval.
 
@@ -340,8 +351,9 @@ class Questrade:
 
         return activities
 
-    def ticker_information(self, tickers):
-        """
+    def ticker_information(self, tickers: Union[str, List[str]]) -> Union[Dict, List[Dict]]:
+        """Get ticker information.
+
         This function gets information such as a quote for a single ticker or a list of tickers.
 
         Parameters
@@ -372,8 +384,9 @@ class Questrade:
 
         return symbols
 
-    def get_quote(self, tickers):
-        """
+    def get_quote(self, tickers: List[str]) -> Union[Dict, List[Dict]]:
+        """Get quote.
+
         This function gets information such as a quote for a single ticker or a list of tickers.
 
         Parameters
@@ -391,7 +404,7 @@ class Questrade:
 
         # translate tickers to IDs
         info = self.ticker_information(tickers)
-        if len(tickers) == 1:
+        if len(tickers) == 1 and isinstance(info, dict):
             ids = [info["symbolId"]]
         else:
             ids = [stock["symbolId"] for stock in info]
@@ -411,8 +424,11 @@ class Questrade:
 
         return quotes
 
-    def get_historical_data(self, ticker, start_date, end_date, interval):
-        """
+    def get_historical_data(
+        self, ticker: str, start_date: str, end_date: str, interval: str
+    ) -> List:
+        """Get historical ticker data.
+
         This method get gets historical data for a time interval and a defined time frequency.
 
         Parameters
@@ -431,10 +447,13 @@ class Questrade:
         list:
             list of historical data for each interval. The list is ordered by date.
         """
-
         # translate tickers to IDs
         info = self.ticker_information(ticker)
-        ids = info["symbolId"]
+        if isinstance(info, dict):
+            ids = info["symbolId"]
+        else:
+            log.error(f"Something went wrong retrieving the symbol ID for ticker {ticker}...")
+            raise Exception(f"Something went wrong retrieving the symbol ID for ticker {ticker}...")
         payload = {
             "startTime": str(start_date) + "T00:00:00-05:00",
             "endTime": str(end_date) + "T00:00:00-05:00",
@@ -442,14 +461,10 @@ class Questrade:
         }
 
         log.info(
-            "Getting historical data for {0} from {1} to {2}".format(
-                ticker, start_date, end_date
-            )
+            "Getting historical data for {0} from {1} to {2}".format(ticker, start_date, end_date)
         )
 
-        response = self._send_message(
-            "get", "markets/candles/" + str(ids), params=payload
-        )
+        response = self._send_message("get", "markets/candles/" + str(ids), params=payload)
         try:
             quotes = response["candles"]
         except Exception:
@@ -458,8 +473,9 @@ class Questrade:
 
         return quotes
 
-    def submit_order(self, acct_id, order_dict):
-        """
+    def submit_order(self, acct_id: int, order_dict: Dict[str, Union[int, bool, str]]) -> Dict:
+        """Submit order.
+
         This method submits an order to Questrade. Note that currently only partner apps can submit
         orders to the Questrade API. The order information is provided in a dictionary of the form
 
@@ -488,9 +504,7 @@ class Questrade:
         dict
             Dictionary with the API response to the order submission.
         """
-        uri = (
-            self.access_token["api_server"] + "/v1/accounts/" + str(acct_id) + "/orders"
-        )
+        uri = self.access_token["api_server"] + "/v1/accounts/" + str(acct_id) + "/orders"
         log.info("Posting order...")
         data = self.session.post(uri, json=order_dict)
         data.raise_for_status()
